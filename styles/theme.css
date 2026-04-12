@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Cores */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  /* Fontes Customizadas */
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui;
+  --font-bebas: var(--font-bebas-neue), display;
+  --font-mono: var(--font-geist-mono), ui-monospace;
+
+  /* Extras */
+  --radius-lg: var(--radius);
+  --color-neon-green: #00ff00;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --primary: #00ff00;
+  --primary-foreground: #0a0a0a;
+  --border: rgba(255, 255, 255, 0.1);
+  --ring: #00ff00;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    /* Define a Space Grotesk como padrão do site */
+    font-family: var(--font-space-grotesk);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  /* Títulos usam a Bebas Neue para um visual mais 'Hype' */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-bebas-neue);
+    @apply tracking-wider uppercase;
+  }
+
+  h1 {
+    @apply text-5xl md:text-7xl;
+  }
+  h2 {
+    @apply text-4xl md:text-5xl;
+  }
+}
+
+@layer utilities {
+  .glow {
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  }
+}
