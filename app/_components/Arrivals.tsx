@@ -5,6 +5,7 @@ import Image from "next/image";
 import { createClient } from "@/lib/supabase";
 import { motion } from "motion/react";
 import Title from "@/components/Title";
+import Link from "next/link";
 
 interface Product {
   id: string;
@@ -13,7 +14,7 @@ interface Product {
   slug: string;
   description: string | null;
   price: number;
-  image_url: string | null;
+  image_url:string[] | null;
   category: "Masculino" | "Feminino" | "Unissex" | "Kids";
   type: "Camiseta" | "Calça" | "Bermuda" | "Moletom" | "Acessório" | "Calçado";
   quantity_in_stock: number;
@@ -22,11 +23,11 @@ interface Product {
 }
 
 const ArrivalsBox = ({ product }: { product: Product }) => (
-  <div className="relative aspect-video h-200 w-full bg-zinc-900 overflow-hidden rounded-lg group">
+  <Link href={`shop/${product.slug}`} className="relative aspect-video h-200 w-full bg-zinc-900 overflow-hidden rounded-lg group">
     {product.image_url ? (
       <>
         <Image
-          src={product.image_url}
+          src={product.image_url[0]}
           alt={product.title}
           fill
           className="object-cover"
@@ -58,7 +59,7 @@ const ArrivalsBox = ({ product }: { product: Product }) => (
         No Image
       </div>
     )}
-  </div>
+  </Link>
 );
 
 export default function NewArrivals() {

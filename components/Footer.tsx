@@ -35,9 +35,18 @@ const FOOTER_ITENS = [
 
 export default function Footer() {
   return (
-    <footer className="px-4 md:px-10 bg-background w-full border-t">
+    <footer className="px-4 md:px-10 bg-background w-full border-t mt-20">
+      <div className="mt-10 block md:hidden">
+        <h3 className="text-3xl font-bebas tracking-tighter leading-none">
+          HYPE<span className="text-primary">NOISE</span>
+        </h3>
+        <p className="text-muted-foreground">
+          Elevating the culture since 2024.
+        </p>
+      </div>
+
       <div className="max-w-7xl mx-auto flex justify-between py-10">
-        <div>
+        <div className="hidden md:block">
           <h3 className="text-3xl font-bebas tracking-tighter leading-none">
             HYPE<span className="text-primary">NOISE</span>
           </h3>
@@ -87,13 +96,18 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto flex justify-between py-10 border-t">
-        <p className="text-muted-foreground">
+      <div className="max-w-7xl mx-auto flex flex-col items-center gap-5 md:flex-row md:justify-between py-5 border-t">
+        <p className="text-muted-foreground text-center md:text-left">
           © 2026 HYPENOISE. All rights reserved.
         </p>
+
         <div className="flex gap-10">
           {FOOTER_ITENS.map((item, i) => (
-            <Link href={item.href} key={i} className="text-muted-foreground hover:text-primary transition-all">
+            <Link
+              href={item.href}
+              key={i}
+              className="text-muted-foreground hover:text-primary transition-all"
+            >
               {item.name}
             </Link>
           ))}

@@ -14,7 +14,7 @@ interface Product {
   slug: string;
   description: string | null;
   price: number;
-  image_url: string | null;
+  image_url: string[] | null;
   category: "Masculino" | "Feminino" | "Unissex" | "Kids";
   type: "Camiseta" | "Calça" | "Bermuda" | "Moletom" | "Acessório" | "Calçado";
   quantity_in_stock: number;
@@ -23,11 +23,11 @@ interface Product {
 }
 
 const ShopBox = ({ product }: { product: Product }) => (
-  <div>
+  <Link href={`shop/${product.slug}`}>
     {product.image_url ? (
       <div className="relative aspect-video h-150 w-full bg-zinc-900 overflow-hidden group hover:bg-background/20">
         <Image
-          src={product.image_url}
+          src={product.image_url[0]}
           alt={product.title}
           fill
           className="object-cover"
@@ -37,19 +37,16 @@ const ShopBox = ({ product }: { product: Product }) => (
 
         <div className="absolute inset-0 hover:bg-background/40 z-10 transition-all cursor-pointer" />
 
-        <Link
-          href={`/product/${product.slug}`}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-foreground p-2 font-bebas text-2xl z-20 whitespace-nowrap hover:text-primary transition-colors"
-        >
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-foreground p-2 font-bebas text-2xl z-20 whitespace-nowrap hover:text-primary transition-colors">
           {product.title}
-        </Link>
+        </div>
       </div>
     ) : (
       <div className="flex items-center justify-center h-full text-zinc-500">
         No Image
       </div>
     )}
-  </div>
+  </Link>
 );
 
 export default function Shop() {
@@ -80,7 +77,7 @@ export default function Shop() {
 
   return (
     <section className="min-h-screen bg-background">
-      <div className="relative w-full h-[30vh] md:h-[70vh] overflow-hidden">
+      <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden">
         <Image
           src="/shop-model.jpg"
           alt="Shop Banner Model"
@@ -97,7 +94,7 @@ export default function Shop() {
         </div>
       </div>
 
-      <div className="mx-auto py-15">
+      <div className="mx-auto py-5">
         {loading ? (
           <div className="text-white animate-pulse font-bebas text-2xl">
             Loading products...

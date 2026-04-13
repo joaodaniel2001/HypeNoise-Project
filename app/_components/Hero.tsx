@@ -31,7 +31,7 @@ export default function Hero() {
         </h3>
 
         <Link
-          href="/"
+          href="/shop"
           className="transition-all bg-primary px-10 py-3 text-primary-foreground font-bebas text-xl tracking-widest hover:bg-white hover:shadow-[0_0_20px_rgba(0,255,0,0.8)] active:scale-95"
         >
           SHOP NOW
