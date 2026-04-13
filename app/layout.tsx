@@ -28,8 +28,8 @@ const bebasNeue = Bebas_Neue({
 });
 
 export const metadata: Metadata = {
-  title: "Imobiliaria Lua",
-  description: "Encontre seu lugar no espaço com a Imobiliaria Lua.",
+  title: "HypeNoise",
+  description: "Find your true culture with HypeNoise.",
 };
 
 export default function RootLayout({
