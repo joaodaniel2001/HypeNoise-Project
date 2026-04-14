@@ -141,3 +141,41 @@
     text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
   }
 }
+
+.btn-glow {
+  /* Configurações básicas do botão */
+  position: relative;
+  padding: 15px 40px;
+  font-family: 'Arial Black', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: #000;
+  background-color: #00FF00; /* O verde neon da imagem */
+  border: none;
+  cursor: pointer;
+  overflow: hidden; /* Importante para esconder o fundo branco fora do botão */
+  transition: color 0.4s ease; /* Transição suave da cor do texto */
+  z-index: 1;
+}
+
+/* Criando a camada branca que vai deslizar */
+.btn-glow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0; 
+  height: 100%;
+  background-color: #fff;
+  transition: width 0.4s ease; 
+  z-index: -1; 
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.btn-glow:hover::before {
+  width: 100%;
+}
+
+.btn-glow:hover {
+  color: #000; 
+}

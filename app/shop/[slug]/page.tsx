@@ -90,7 +90,7 @@ export default function ProductPage() {
         <div className="px-10 py-5 flex-1">
           <h5 className="text-muted-foreground">{product.id}</h5>
           <h3>{product.title}</h3>
-          <h4 className="glow text-primary">R$ {product.price.toFixed(2)}</h4>
+          <h4 className="glow text-primary">$ {product.price.toFixed(2)}</h4>
 
           <div className="mt-10">
             <h4 className="font-sans text-2xl">Sizes</h4>
@@ -122,7 +122,7 @@ export default function ProductPage() {
               </div>
             </div>
 
-            <button className="transition-all bg-primary px-10 py-5 text-primary-foreground font-bebas text-xl tracking-widest hover:bg-white hover:shadow-[0_0_20px_rgba(0,255,0,0.8)] w-full my-5 active:scale-95">
+            <button className="btn-glow w-full">
               SHOP NOW
             </button>
 

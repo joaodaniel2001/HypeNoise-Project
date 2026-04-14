@@ -6,6 +6,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface Product {
   id: string;
@@ -23,30 +30,44 @@ interface Product {
 }
 
 const ShopBox = ({ product }: { product: Product }) => (
-  <Link href={`shop/${product.slug}`}>
-    {product.image_url ? (
-      <div className="relative aspect-video h-150 w-full bg-zinc-900 overflow-hidden group hover:bg-background/20">
-        <Image
-          src={product.image_url[0]}
-          alt={product.title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-black/0" />
-
-        <div className="absolute inset-0 hover:bg-background/40 z-10 transition-all cursor-pointer" />
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-foreground p-2 font-bebas text-2xl z-20 whitespace-nowrap hover:text-primary transition-colors">
-          {product.title}
-        </div>
-      </div>
+  <div className="group relative">
+    {product.image_url && product.image_url.length > 0 ? (
+      <Carousel opts={{ align: "start" }} className="w-full">
+        <CarouselContent>
+          {product.image_url.map((url, index) => (
+            <CarouselItem key={index} className="basis-full">
+              <Link href={`/shop/${product.slug}`}>
+                <div className="relative aspect-square md:aspect-video w-full min-h-120 bg-zinc-900 overflow-hidden">
+                  <Image
+                    src={url}
+                    alt={`${product.title} - imagem ${index + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  />
+                </div>
+              </Link>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        {product.image_url.length > 1 && (
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+            <CarouselPrevious className="left-2" />
+            <CarouselNext className="right-2" />
+          </div>
+        )}
+        <Link href={`/shop/${product.slug}`}>
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 backdrop-blur-sm px-4 py-1 font-bebas text-xl z-20 whitespace-nowrap">
+            {product.title}
+          </div>
+        </Link>
+      </Carousel>
     ) : (
-      <div className="flex items-center justify-center h-full text-zinc-500">
+      <div className="flex items-center justify-center aspect-video bg-zinc-900 text-zinc-500">
         No Image
       </div>
     )}
-  </Link>
+  </div>
 );
 
 export default function Shop() {
@@ -83,7 +104,7 @@ export default function Shop() {
           alt="Shop Banner Model"
           fill
           priority
-          className="object-cover object-top"
+          className="object-cover object-center"
         />
 
         <div className="absolute inset-0 bg-black/70 z-0" />
