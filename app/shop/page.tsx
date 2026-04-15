@@ -122,7 +122,7 @@ export default function Shop() {
           </div>
         ) : (
           <motion.div
-            className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-2 cursor-pointer"
+            className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 gap-2 cursor-pointer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}

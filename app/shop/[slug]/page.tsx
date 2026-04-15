@@ -122,7 +122,7 @@ export default function ProductPage() {
               </div>
             </div>
 
-            <button className="btn-glow w-full">
+            <button className="btn-glow w-full my-10">
               SHOP NOW
             </button>
 
