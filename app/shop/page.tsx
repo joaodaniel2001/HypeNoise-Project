@@ -57,8 +57,13 @@ const ShopBox = ({ product }: { product: Product }) => (
           </div>
         )}
         <Link href={`/shop/${product.slug}`}>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white bg-black/50 backdrop-blur-sm px-4 py-1 font-bebas text-xl z-20 whitespace-nowrap">
-            {product.title}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white bg-black/60 backdrop-blur-md px-6 py-2 font-bebas z-20 whitespace-nowrap flex flex-col items-center rounded-sm transition-all">
+            <span className="text-2xl tracking-wide">{product.title}</span>
+            <div>
+              <span className="text-lg opacity-90 text-primary glow">
+                $ {product.price}
+              </span>
+            </div>
           </div>
         </Link>
       </Carousel>

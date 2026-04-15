@@ -36,19 +36,15 @@ const ArrivalsBox = ({ product }: { product: Product }) => (
 
         <div className="absolute inset-0 hover:bg-background/60 z-10 transition-all cursor-pointer" />
 
-        {/* Categoria: Topo Direita */}
         <span className="absolute top-0 right-0 bg-primary p-2 font-bebas text-primary-foreground text-2xl z-10 m-10">
           {product.category}
         </span>
 
-        {/* Título: Baixo Esquerda */}
         <span className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm text-white p-4 font-bebas z-20 flex flex-col min-w-30">
-          {/* Título do Produto */}
           <span className="text-2xl leading-none mb-1 tracking-wider border-b border-primary/50 pb-1">
             {product.title}
           </span>
 
-          {/* Preço formatado */}
           <span className="text-primary text-xl tracking-widest">
             ${Number(product.price).toFixed(2)}
           </span>
