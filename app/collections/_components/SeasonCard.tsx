@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Title from "@/components/Title";
 
+
 export const ContentBanner = () => (
   <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden">
     <Image

@@ -4,14 +4,34 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { createClient } from "@/lib/supabase";
 import { ContentBanner, SeasonCard } from "./_components/SeasonCard";
-import Banner from "./_components/Banner";
+import { Banner, ContCollection } from "./_components/ContCollection";
 
-// Definição da interface para garantir o match com seu JSON
 interface Product {
   id: string;
   image_url: string[] | null;
   collections: string[] | null;
 }
+
+const BANNERS = [
+  {
+    image_url: "/content-banner01.jpg",
+    title: "Classic & Iconic",
+    subtitle: "out most representative garments.",
+    where: "center",
+  },
+  {
+    image_url: "/content-banner02.jpg",
+    title: "Essential & Timeless",
+    subtitle: "The foundation of your daily wardrobe.",
+    where: "top",
+  },
+  {
+    image_url: "/content-banner03.jpg",
+    title: "Heritage & Style",
+    subtitle: "Crafted for the modern urban explorer.",
+    where: "top",
+  },
+];
 
 export default function Content() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -74,7 +94,18 @@ export default function Content() {
             })}
           </motion.div>
         )}
-        <Banner/>
+
+        {BANNERS.map((item, i) => (
+          <div key={i}>
+            <Banner
+              image_url={item.image_url}
+              title={item.title}
+              subtitle={item.subtitle}
+              where={item.where}
+            />
+            <ContCollection title={item.title}/>
+          </div>
+        ))}
       </div>
     </section>
   );
