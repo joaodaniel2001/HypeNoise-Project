@@ -3,7 +3,7 @@
 import Title from "@/components/Title";
 import { createClient } from "@/lib/supabase";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react"; 
 import { motion } from "motion/react";
 import Link from "next/link";
 import {
@@ -78,7 +78,7 @@ const ShopBox = ({ product }: { product: Product }) => (
   </div>
 );
 
-export default function Shop() {
+function ShopContent() {
   const searchParams = useSearchParams();
 
   const initialCategory = searchParams.get("category") || "All";
@@ -211,5 +211,19 @@ export default function Shop() {
         </section>
       </div>
     </section>
+  );
+}
+
+export default function Shop() {
+  return (
+    <Suspense
+      fallback={
+        <div className="w-full h-screen text-white font-bebas text-2xl flex items-center justify-center bg-background">
+          Loading Shop...
+        </div>
+      }
+    >
+      <ShopContent />
+    </Suspense>
   );
 }
