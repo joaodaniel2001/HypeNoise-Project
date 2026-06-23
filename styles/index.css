@@ -143,39 +143,53 @@
 }
 
 .btn-glow {
-  /* Configurações básicas do botão */
   position: relative;
   padding: 15px 40px;
-  font-family: 'Arial Black', sans-serif;
+  font-family: "Arial Black", sans-serif;
   font-size: 1.2rem;
   letter-spacing: 2px;
   color: #000;
-  background-color: #00FF00; /* O verde neon da imagem */
+  background-color: #00ff00;
   border: none;
   cursor: pointer;
-  overflow: hidden; /* Importante para esconder o fundo branco fora do botão */
-  transition: color 0.4s ease; /* Transição suave da cor do texto */
+  overflow: hidden;
+  transition: color 0.4s ease;
   z-index: 1;
 }
 
-/* Criando a camada branca que vai deslizar */
+.btn-no-animation {
+  position: relative;
+  padding: 15px 40px;
+  font-family: "Arial Black", sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: #000;
+  background-color: #00ff00;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: color 0.4s ease;
+  z-index: 1;
+}
+
+/* Camada branca deslizante exclusiva do botão com efeito */
 .btn-glow::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  width: 0; 
+  width: 0;
   height: 100%;
   background-color: #fff;
-  transition: width 0.4s ease; 
-  z-index: -1; 
+  transition: width 0.4s ease;
+  z-index: -1;
 }
 
-/* Efeito ao passar o mouse (Hover) */
+/* Efeito Hover do botão animado */
 .btn-glow:hover::before {
   width: 100%;
 }
 
 .btn-glow:hover {
-  color: #000; 
+  color: #000;
 }

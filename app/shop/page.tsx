@@ -13,6 +13,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import ShopFilter from "./filter";
+import { useSearchParams } from "next/navigation";
 
 interface Product {
   id: string;
@@ -22,8 +24,9 @@ interface Product {
   description: string | null;
   price: number;
   image_url: string[] | null;
-  category: "Masculino" | "Feminino" | "Unissex" | "Kids";
-  type: "Camiseta" | "Calça" | "Bermuda" | "Moletom" | "Acessório" | "Calçado";
+  category: "Men" | "Women" | "Unisex" | "Kids";
+  type: "T-shirt" | "Pants" | "Sweatshirt" | "Accessory";
+  collections: string[];
   quantity_in_stock: number;
   available_sizes: ("PP" | "P" | "M" | "G" | "GG" | "XG" | "Único")[];
   is_featured: boolean;
@@ -76,8 +79,23 @@ const ShopBox = ({ product }: { product: Product }) => (
 );
 
 export default function Shop() {
+  const searchParams = useSearchParams();
+
+  const initialCategory = searchParams.get("category") || "All";
+  const initialType = searchParams.get("type") || "All";
+  const initialSize = searchParams.get("size") || "All";
+  const initialCollection = searchParams.get("collection") || "All";
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>(initialCategory);
+  const [selectedType, setSelectedType] = useState<string>(initialType);
+  const [selectedSize, setSelectedSize] = useState<string>(initialSize);
+  const [selectedCollection, setSelectedCollection] =
+    useState<string>(initialCollection);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
   const supabase = createClient();
 
@@ -101,9 +119,35 @@ export default function Shop() {
     getProducts();
   }, []);
 
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory =
+      selectedCategory === "All" || product.category === selectedCategory;
+    const matchesType = selectedType === "All" || product.type === selectedType;
+    const matchesCollection =
+      selectedCollection === "All" ||
+      product.collections?.some(
+        (c) => c.toLowerCase() === selectedCollection.toLowerCase(),
+      );
+    const matchesSize =
+      selectedSize === "All" ||
+      product.available_sizes?.includes(
+        selectedSize as Product["available_sizes"][number],
+      );
+    const matchesPrice =
+      product.price >= priceRange[0] && product.price <= priceRange[1];
+
+    return (
+      matchesCategory &&
+      matchesType &&
+      matchesSize &&
+      matchesPrice &&
+      matchesCollection
+    );
+  });
+
   return (
     <section className="min-h-screen bg-background">
-      <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden">
+      <div className="relative w-full h-[50vh] md:h-[60vh] overflow-hidden">
         <Image
           src="/shop-model.jpg"
           alt="Shop Banner Model"
@@ -120,23 +164,51 @@ export default function Shop() {
         </div>
       </div>
 
-      <div className="mx-auto py-5">
-        {loading ? (
-          <div className="text-white animate-pulse font-bebas text-2xl">
-            Loading products...
+      <div className="mx-auto py-5 grid grid-cols-[20%_80%]">
+        <ShopFilter
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          selectedType={selectedType}
+          setSelectedType={setSelectedType}
+          selectedSize={selectedSize}
+          setSelectedSize={setSelectedSize}
+          priceRange={priceRange}
+          setPriceRange={setPriceRange}
+          selectedCollection={selectedCollection}
+          setSelectedCollection={setSelectedCollection}
+        />
+
+        <section className="pb-10">
+          <div className="btn-no-animation text-center group mb-2">
+            ACCESSORY 15% OFF! CODE:&nbsp;
+            <span className="font-sans group-hover:underline transition-all duration-35">
+              WEAREHYPED
+            </span>
           </div>
-        ) : (
-          <motion.div
-            className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-4 gap-2 cursor-pointer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            {products.map((product) => (
-              <ShopBox key={product.id} product={product} />
-            ))}
-          </motion.div>
-        )}
+
+          {loading ? (
+            <div className="w-full text-white animate-pulse font-bebas text-2xl flex items-center justify-center py-10">
+              Loading products...
+            </div>
+          ) : (
+            <motion.div
+              className="grid grid-cols-2 md:grid-cols-4 gap-2 cursor-pointer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+            >
+              {filteredProducts.length === 0 ? (
+                <div className="col-span-full text-zinc-500 font-sans text-xl py-10 flex flex-col items-center justify-center w-full">
+                  <p>No products were found for that filter.</p>
+                </div>
+              ) : (
+                filteredProducts.map((product) => (
+                  <ShopBox key={product.id} product={product} />
+                ))
+              )}
+            </motion.div>
+          )}
+        </section>
       </div>
     </section>
   );

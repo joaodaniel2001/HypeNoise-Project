@@ -14,7 +14,7 @@ interface Product {
   slug: string;
   description: string | null;
   price: number;
-  image_url:string[] | null;
+  image_url: string[] | null;
   category: "Masculino" | "Feminino" | "Unissex" | "Kids";
   type: "Camiseta" | "Calça" | "Bermuda" | "Moletom" | "Acessório" | "Calçado";
   quantity_in_stock: number;
@@ -23,14 +23,17 @@ interface Product {
 }
 
 const ArrivalsBox = ({ product }: { product: Product }) => (
-  <Link href={`shop/${product.slug}`} className="relative aspect-video h-200 w-full bg-zinc-900 overflow-hidden rounded-lg group">
+  <Link
+    href={`shop/${product.slug}`}
+    className="relative aspect-video h-150 w-full bg-zinc-900 overflow-hidden rounded-lg group"
+  >
     {product.image_url ? (
       <>
         <Image
           src={product.image_url[0]}
           alt={product.title}
           fill
-          className="object-cover"
+          className="object-cover object-top"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
 
@@ -86,7 +89,10 @@ export default function NewArrivals() {
   }, []);
 
   return (
-    <section id="arrivals" className="min-h-screen py-20 px-4 md:px-10 bg-background w-full">
+    <section
+      id="arrivals"
+      className="min-h-screen py-20 px-4 md:px-10 bg-background w-full"
+    >
       <div className="max-w-7xl mx-auto">
         <Title StartTitle="New" EndTitle="Arrivals" />
 

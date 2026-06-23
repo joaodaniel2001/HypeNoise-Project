@@ -92,6 +92,8 @@ export interface GooeyInputProps {
   onValueChange?: (value: string) => void;
   onOpenChange?: (open: boolean) => void;
   disabled?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
 }
 
 export function GooeyInput({
@@ -106,7 +108,9 @@ export function GooeyInput({
   defaultValue = "",
   onValueChange,
   onOpenChange,
+  onChange,
   disabled = false,
+  name,
 }: GooeyInputProps) {
   const reactId = useId();
   const safeId = reactId.replace(/:/g, "");
@@ -164,8 +168,9 @@ export function GooeyInput({
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       setSearchText(e.target.value);
+      onChange?.(e);
     },
-    [setSearchText],
+    [setSearchText, onChange],
   );
 
   const handleBlur = useCallback(() => {
@@ -217,6 +222,7 @@ export function GooeyInput({
               layoutId={inputLayoutId}
               ref={inputRef}
               type="search"
+              name={name}
               enterKeyHint="search"
               autoComplete="off"
               value={searchText}

@@ -13,7 +13,7 @@ interface Product {
   slug: string;
   description: string | null;
   price: number;
-  image_url: string[] | null; // Alterado para array conforme sua necessidade de galeria
+  image_url: string[] | null;
   category: "Masculino" | "Feminino" | "Unissex" | "Kids";
   type: "Camiseta" | "Calça" | "Bermuda" | "Moletom" | "Acessório" | "Calçado";
   quantity_in_stock: number;
@@ -122,9 +122,7 @@ export default function ProductPage() {
               </div>
             </div>
 
-            <button className="btn-glow w-full my-10">
-              SHOP NOW
-            </button>
+            <button className="btn-glow w-full my-10">SHOP NOW</button>
 
             <h6 className="flex gap-2">{product.description}</h6>
           </div>

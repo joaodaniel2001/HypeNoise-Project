@@ -2,9 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Title from "@/components/Title";
 
-
 export const ContentBanner = () => (
-  <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden">
+  <div className="relative w-full h-[50vh] md:h-[60vh] overflow-hidden">
     <Image
       src="/content-model.jpg"
       alt="Shop Banner Model"
@@ -27,7 +26,7 @@ interface SeasonCardProps {
 
 export const SeasonCard = ({ season, imageUrl }: SeasonCardProps) => (
   <Link
-    href={`/shop?collection=${season.toLowerCase()}`}
+    href={`/shop?collections=${season.toLowerCase()}`}
     className="group relative overflow-hidden bg-zinc-900 aspect-3/4 md:aspect-4/5 w-full border-r border-white/5 last:border-0 min-h-110"
   >
     {imageUrl ? (
